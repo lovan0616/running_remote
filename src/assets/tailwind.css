@@ -1,0 +1,18 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.move {
+  @apply transform -translate-y-full transition duration-1000 ease-in-out;
+}
+.ctab {
+  @apply cursor-pointer text-gray-400;
+}
+.ccard {
+  @apply bg-white opacity-70 rounded-2xl p-2 my-2;
+}
+.cchip {
+  @apply bg-white shadow m-4 p-1.5 rounded-md;
+}
