@@ -1,6 +1,6 @@
 <template>
   <div id="side-nav" class="mt-3">
-    <ol class="nav-panel w-screen h-full flex overflow-scroll">
+    <ol class="nav-panel w-full h-full flex overflow-scroll">
       <li
         v-for="runnerData in runnerDatas"
         :key="runnerData.userId"

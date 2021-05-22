@@ -1,20 +1,20 @@
 <template>
-  <div class="lg:flex">
-    <div class="start-zone flex items-center lg:flex-1">
+  <div>
+    <div class="start-zone flex items-center">
       <span class="cchip text-brandblue">起</span>
       <div>
         <p class="time mb-0">{{ start.time }}</p>
         <p class="location mb-0">{{ start.location }}</p>
       </div>
     </div>
-    <div class="end-zone flex items-center lg:flex-1">
+    <div class="end-zone flex items-center">
       <span class="cchip text-brandwatermelon">終</span>
       <div>
         <p class="time mb-0">{{ end.time }}</p>
         <p class="location mb-0">{{ end.location }}</p>
       </div>
     </div>
-    <div class="route-info-zone lg:w-60 p-2">
+    <div class="route-info-zone p-2">
       <div class="flex gap-2">
         <p class="distance">
           <font-awesome-icon class="text-brandblue" icon="clock" />12KM
@@ -23,7 +23,7 @@
           <font-awesome-icon class="text-brandblue" icon="route" />1.4hr
         </p>
       </div>
-      <button class="check-route w-full h-14 lg:h-8 bg-brandblue text-white rounded-full active:filter active:brightness-75">查看路徑</button>
+      <button class="check-route w-full h-14 lg:h-8 bg-brandblue text-white rounded-full active:filter active:brightness-75" @click.stop.prevent="checkRoute">查看路徑</button>
     </div>
   </div>
 </template>
@@ -42,6 +42,16 @@ export default {
     },
     end() {
       return this.cardRoute[this.cardRoute.length - 1];
+    }
+  },
+  methods: {
+    checkRoute() {
+      const lnglats = [...Array(this.cardRoute.length)].map((latlng, index) => {
+        return [ this.cardRoute[index].lng, this.cardRoute[index].lat]
+      })
+
+      // 將路徑latlngs透過eventbus傳送出去，並在Map.vue中監聽事件、產生對應的LGeoJson
+      this.$bus.$emit('check-route', lnglats)
     }
   }
 };

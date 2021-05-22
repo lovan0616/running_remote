@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <Welcome />
-    <div class="nav-container backdrop-filter backdrop-blur-md rounded-2xl">
+    <div class="nav-container flex flex-col absolute top-0 left-0 lg:h-screen border border-white backdrop-filter backdrop-blur-md rounded-xl w-screen lg:w-1/4">
       <SideNav :runner-datas="runnerDatas" @set-active-runner="afterSetActiveRunner" />
-      <RunnerInfo :active-runner="activeRunnerData" v-if="activeRunnerData" class="px-4 border-2 border-black"/>
+      <RunnerInfo :active-runner="activeRunnerData" v-if="activeRunnerData" class="px-4 border-2 border-black flex-1"/>
     </div>
     <Map :runner-datas="runnerDatas" :active-runner="activeRunnerData"/>
   </div>
@@ -74,10 +74,6 @@ body {
 }
 
 .nav-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
   z-index: 1000;
 }
 

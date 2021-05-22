@@ -3,11 +3,19 @@
     <div id="map">
       <l-map ref="myMap" :zoom="zoom" :center="center" :options="options" style="height: 100vh">
         <l-tile-layer :url="url" :attribution="attribution" />
+        <!-- 使用者現在位置 -->
         <l-marker :lat-lng="[25.04, 121.53]" :draggable="true">
           <l-icon icon-url="../icon/present.png" :iconSize="iconSize" />
         </l-marker>
+        <!-- 所有runners位置 -->
+        <RunnerMarker
+          v-for="runnerData in runnerDatas"
+          :key="runnerData.sno"
+          :runner-data="runnerData"
+        />
 
-        <RunnerMarker v-for="runnerData in runnerDatas" :key="runnerData.sno" :runner-data="runnerData" />
+        <!-- 查看中路徑 -->
+        <l-geo-json v-if="routeGeoJson" :geojson="routeGeoJson" :layerType="'LineString'"></l-geo-json>
       </l-map>
     </div>
   </div>
@@ -35,7 +43,8 @@ export default {
       options: {
         zoomControl: false
       },
-      iconSize: [64, 64]
+      iconSize: [64, 64],
+      routeGeoJson: null
     };
   },
   props: {
@@ -49,26 +58,48 @@ export default {
   },
   watch: {
     activeRunner(newValue, oldValue) {
-      console.log(oldValue)
+      console.log(oldValue);
       //移動到actibeRunner位置
-      this.myMap.flyTo([newValue.lat, newValue.lng], 17);
+      this.flyTo(newValue.lat, newValue.lng, 17)
 
       //Todo:產生導航路線
       // L.Routing.control({
       //   waypoints: [L.latLng(25.0377, 121.5643), L.latLng(newValue.lat, newValue.lng)],
       //   createMarker: function() { return null},
       // }).addTo(this.myMap);
-
     }
   },
   mounted() {
     this.$nextTick(() => {
+      // 將mpaObject裝進變數
       this.myMap = this.$refs.myMap.mapObject;
     });
+  },
+  created() {
+    this.$bus.$on("check-route", lnglats => {
+      const latlngs = lnglats.map(item => item.slice().reverse())
+      this.setRouteGeoJson(lnglats)
+      this.flyToBounds(latlngs)
+    });
+  },
+  methods: {
+    setRouteGeoJson(lnglats) {
+      this.routeGeoJson = [
+        {
+          "type": "LineString",
+          "coordinates": lnglats
+        }
+      ];
+    },
+    flyTo(lat, lng, zoom) {
+      this.myMap.flyTo([lat, lng], zoom)
+    },
+    flyToBounds(bounds, options) {
+      this.myMap.flyToBounds(bounds, options)
+    }
   }
 };
 </script>
 
 <style scoped>
-
 </style>

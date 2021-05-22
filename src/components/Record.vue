@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center items-center">
+  <div id="record-panel" class="flex flex-col justify-center items-center">
     <input class="w-full h-12 p-3 ccard shadow-md cursor-pointer" placeholder="點此篩選日期" type="text" name="daterange"/>
-    <line-chart v-if="loaded" :fetched-data="fetchedData" />
+    <line-chart v-if="loaded" :fetched-data="fetchedData" :width="chartWidth" />
   </div>
 </template>
 
@@ -25,6 +25,7 @@ export default {
       endDate: "",
       loaded: false,
       fetchedData: null,
+      chartWidth: null
     };
   },
   computed: {
@@ -96,6 +97,11 @@ export default {
         .catch(err => console.log(err));
 
       this.loaded = true;
+    },
+    getResponsiveWidth() {
+      let panelWidth = document.getElementById('record-panel').clientWidth
+      console.log(panelWidth)
+      this.chartWidth = panelWidth
     }
   },
   watch: {
@@ -118,6 +124,9 @@ export default {
   mounted() {
     this.initPicker();
     this.bindEvent();
+    this.getResponsiveWidth();
+  },
+  created() {
   }
 };
 </script>

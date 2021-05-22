@@ -38,12 +38,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.info {
-  width: 100vw;
-  height: 200px;
-  border: 1px solid;
-}
-
-</style>
