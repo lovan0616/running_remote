@@ -50,7 +50,7 @@ export default {
             //根據當下頁碼，apui抓回對應頁碼的route資料
             axios
               .get(
-                `http://powerful-springs-52366.herokuapp.com/api/historyData?userId=${activeRunner.userId}&page=${that.page}`
+                `https://powerful-springs-52366.herokuapp.com/api/historyData?userId=${activeRunner.userId}&page=${that.page}`
               )
               .then(res => {
                 const { data } = res;
