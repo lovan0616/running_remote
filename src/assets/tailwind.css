@@ -7,9 +7,6 @@
 .move {
   @apply transform -translate-y-full transition duration-1000 ease-in-out;
 }
-.ctab {
-  @apply cursor-pointer text-gray-400;
-}
 .ccard {
   @apply bg-white opacity-70 rounded-2xl p-2 my-2;
 }
@@ -19,4 +16,9 @@
 .ctransition {
   @apply transition duration-200;
 }
-
+.ccircle {
+  @apply rounded-full inline-block h-6 lg:h-10 w-6 lg:w-10 leading-6 lg:leading-10  text-center;
+}
+.cbtnaffect {
+  @apply active:filter active:brightness-75 focus:outline-none;
+}

@@ -1,7 +1,7 @@
 <template>
   <div>
     <l-marker :lat-lng=latlng @click="setActiveRunner">
-      <l-icon icon-url="../icon/runner.png" :iconSize='[64, 64]' />
+      <l-icon icon-url="/running_remote/image/runner.png" :iconSize='[64, 64]' />
     </l-marker>
   </div>
 </template>

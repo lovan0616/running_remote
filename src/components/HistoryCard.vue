@@ -24,7 +24,7 @@
         </p>
       </div>
       <button
-        class="check-route w-full h-14 lg:h-8 bg-brandblue text-white rounded-full active:filter active:brightness-75 focus:outline-none"
+        class="check-route w-full h-14 lg:h-8 bg-brandblue text-white rounded-full cbtnaffect"
         @click.stop.prevent="checkRoute"
       >查看路徑</button>
     </div>

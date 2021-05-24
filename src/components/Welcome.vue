@@ -11,7 +11,7 @@
         <h1 class="text-7xl">歡迎</h1>
         <p class="font-semibold mb-2">在跑跑上，找到並肩作戰的跑友吧！</p>
         <button
-          class="w-full h-20 lg:h-10 rounded-full bg-brandwatermelon text-2xl font-bold text-white active:filter active:brightness-75 focus:outline-none"
+          class="w-full h-20 lg:h-10 rounded-full bg-brandwatermelon text-2xl font-bold text-white cbtnaffect"
           @click.stop.prevent="enterApp"
         >開始吧</button>
       </div>
@@ -44,7 +44,7 @@ export default {
 
 <style scoped>
 #welcome-page {
-  z-index: 100000;
+  z-index: 10000;
   background-image: url(../../public/image/background.jpg);
   background-size: cover;
   background-repeat: no-repeat;

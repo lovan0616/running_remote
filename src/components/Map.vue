@@ -4,8 +4,8 @@
       <l-map ref="myMap" :zoom="zoom" :center="center" :options="options" style="height: 100vh">
         <l-tile-layer :url="url" :attribution="attribution" />
         <!-- 使用者現在位置 -->
-        <l-marker :lat-lng="[25.04, 121.53]" :draggable="true">
-          <l-icon icon-url="../icon/present.png" :iconSize="iconSize" />
+        <l-marker :lat-lng="center" :draggable="true">
+          <l-icon icon-url="image/present.png" :iconSize="iconSize" />
         </l-marker>
         <!-- 所有runners位置 -->
         <RunnerMarker
@@ -16,13 +16,13 @@
 
         <!-- 查看中路徑的起點標示 -->
         <l-marker v-if="routeGeoJson" :lat-lng="[routeStartLatLng[0], routeStartLatLng[1]]">
-          <l-icon icon-url="../icon/start.png" :iconSize="iconSize" />
+          <l-icon icon-url="/running_remote/image/start.png" :iconSize="iconSize" />
         </l-marker>
         <!-- 查看中路徑 -->
         <l-geo-json v-if="routeGeoJson" :geojson="routeGeoJson" :options="routeOptions" :layerType="'LineString'"></l-geo-json>
         <!-- 查看中路徑的終點標示 -->
         <l-marker v-if="routeGeoJson" :lat-lng="[routeEndLatLng[0], routeEndLatLng[1]]">
-          <l-icon icon-url="../icon/end.png" :iconSize="iconSize" />
+          <l-icon icon-url="/running_remote/image/end.png" :iconSize="iconSize" />
         </l-marker>
       </l-map>
     </div>
@@ -43,8 +43,8 @@ export default {
   data() {
     return {
       myMap: null,
-      zoom: 10,
-      center: [25, 121.15],
+      zoom: 12,
+      center: [25,121],
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
       attribution:
         'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
@@ -91,6 +91,7 @@ export default {
     this.$nextTick(() => {
       // 將mpaObject裝進變數
       this.myMap = this.$refs.myMap.mapObject;
+      this.locate()
     });
   },
   created() {
@@ -98,6 +99,8 @@ export default {
       const latlngs = lnglats.map(item => item.slice().reverse())
       this.setRouteGeoJson(lnglats)
       this.flyToBounds(latlngs)
+
+      
     });
   },
   methods: {
@@ -114,6 +117,13 @@ export default {
     },
     flyToBounds(bounds, options) {
       this.myMap.flyToBounds(bounds, options)
+    },
+    locate() {
+      //locate方法取得當前位置、監聽locationfound事件取得當前位置的相關資料
+      this.myMap.locate({setVeiw: false}).on('locationfound', (ev) => {
+        this.center = [ev.latitude, ev.longitude]
+        this.flyTo(ev.latitude, ev.longitude, 12)
+      })
     }
   }
 };

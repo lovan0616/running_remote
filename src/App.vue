@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Welcome v-if="!isAppEverEntered" @enter-app="afterEnterApp" />
+    <Tutorial v-if="!isTutorialEverShown && isAppEverEntered" @end-tutorial="afterEndTutorial" />
     <div
       v-if="isAppEverEntered"
       class="nav-container flex flex-col absolute top-0 left-0 lg:h-screen border border-white backdrop-filter backdrop-blur-md rounded-xl w-screen lg:w-1/4 transform "
@@ -21,6 +22,7 @@ import Map from "./components/Map";
 import SideNav from "./components/SideNav";
 import RunnerInfo from "./components/RunnerInfo";
 import Welcome from "./components/Welcome";
+import Tutorial from "./components/Tutorial"
 
 export default {
   name: "App",
@@ -28,13 +30,15 @@ export default {
     Map,
     SideNav,
     RunnerInfo,
-    Welcome
+    Welcome,
+    Tutorial
   },
   data() {
     return {
       runnerDatas: [],
       activeRunnerData: null,
       isAppEverEntered: false,
+      isTutorialEverShown: false,
       fold: false
     };
   },
@@ -62,8 +66,15 @@ export default {
     afterSetActiveRunner(runnerData) {
       this.activeRunnerData = runnerData;
     },
+    afterEndTutorial() {
+      this.isTutorialEverShown = true
+      localStorage.setItem("tutorialShown","true")
+    },
     checkIsAppEverEntered() {
       if (localStorage.getItem("enteredBefore")) this.isAppEverEntered = true;
+    },
+    checkIsTutorialEverShown() {
+      if (localStorage.getItem("tutorialShown")) this.isTutorialEverShown = true
     },
     afterEnterApp() {
       this.isAppEverEntered = true
