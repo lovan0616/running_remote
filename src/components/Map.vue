@@ -19,7 +19,12 @@
           <l-icon icon-url="/running_remote/image/start.png" :iconSize="iconSize" />
         </l-marker>
         <!-- 查看中路徑 -->
-        <l-geo-json v-if="routeGeoJson" :geojson="routeGeoJson" :options="routeOptions" :layerType="'LineString'"></l-geo-json>
+        <l-geo-json
+          v-if="routeGeoJson"
+          :geojson="routeGeoJson"
+          :options="routeOptions"
+          :layerType="'LineString'"
+        ></l-geo-json>
         <!-- 查看中路徑的終點標示 -->
         <l-marker v-if="routeGeoJson" :lat-lng="[routeEndLatLng[0], routeEndLatLng[1]]">
           <l-icon icon-url="/running_remote/image/end.png" :iconSize="iconSize" />
@@ -113,7 +118,8 @@ export default {
       ];
     },
     flyTo(lat, lng, zoom) {
-      this.myMap.flyTo([lat, lng], zoom)
+      const isPCBreakpoint = window.innerWidth >= 1280
+      this.myMap.flyTo([ isPCBreakpoint ? lat : lat + 0.0015, lng], zoom)
     },
     flyToBounds(bounds, options) {
       this.myMap.flyToBounds(bounds, options)

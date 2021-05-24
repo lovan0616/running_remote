@@ -82,6 +82,7 @@ export default {
   },
   created() {
     this.checkIsAppEverEntered();
+    this.checkIsTutorialEverShown();
     this.fetchRunnerDatas();
     this.$bus.$on(
       "set-active-runner",
