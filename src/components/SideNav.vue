@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     setActiveRunner(runnerData) {
-      this.$emit("set-active-runner", runnerData);
+      this.$bus.$emit("set-active-runner", runnerData);
     }
   }
 };

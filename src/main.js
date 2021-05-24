@@ -3,19 +3,18 @@ import App from './App.vue'
 
 // 注入掛載好的event bus
 import "./util/bus"
-
 // 載入 tailwind
 import "../src/assets/tailwind.css"
-
 // 載入 vue2-leaflet，依照自己需要載入組件
 import { LMap, LTileLayer, LMarker, LPopup, LIcon, LGeoJson } from "vue2-leaflet"
 import "leaflet/dist/leaflet.css"
-
 // 載入 fontAwesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+//載入 animate.css
+import animated from "animate.css"
 
 // 設定預設 icon
 import { Icon } from "leaflet";
@@ -38,6 +37,9 @@ Vue.component("l-geo-json", LGeoJson)
 library.add(fas, far)
 //全局註冊
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+//將animate.css掛入
+Vue.use(animated)
 
 Vue.config.productionTip = false
 

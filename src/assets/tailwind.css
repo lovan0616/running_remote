@@ -16,3 +16,7 @@
 .cchip {
   @apply bg-white shadow m-4 p-1.5 rounded-md;
 }
+.ctransition {
+  @apply transition duration-200;
+}
+

@@ -1,11 +1,17 @@
 <template>
   <div id="app">
-    <Welcome />
-    <div class="nav-container flex flex-col absolute top-0 left-0 lg:h-screen border border-white backdrop-filter backdrop-blur-md rounded-xl w-screen lg:w-1/4">
+    <Welcome v-if="!isAppEverEntered" @enter-app="afterEnterApp" />
+    <div
+      v-if="isAppEverEntered"
+      class="nav-container flex flex-col absolute top-0 left-0 lg:h-screen border border-white backdrop-filter backdrop-blur-md rounded-xl w-screen lg:w-1/4 transform "
+      :class="[{'-translate-y-90%':fold},{'lg:-translate-y-0':fold},{'lg:-translate-x-90%':fold},{ctransition:fold}]"
+    >
       <SideNav :runner-datas="runnerDatas" @set-active-runner="afterSetActiveRunner" />
-      <RunnerInfo :active-runner="activeRunnerData" v-if="activeRunnerData" class="px-4 border-2 border-black flex-1"/>
+      <RunnerInfo :active-runner="activeRunnerData" v-if="activeRunnerData" class="px-4 flex-1" />
+      <div class="fold-control cursor-pointer bg-white text-brandblue rounded-xl p-1 lg:w-7 lg:leading-5 absolute -bottom-10 lg:bottom-1/2 lg:translate-y-1/2 right-1/2 lg:-right-6 transform translate-x-1/2 text-center" @click.stop.prevent="fold = !fold">{{ fold ? 
+      '點此展開' : '點此收合'}}</div>
     </div>
-    <Map :runner-datas="runnerDatas" :active-runner="activeRunnerData"/>
+    <Map v-if="isAppEverEntered" :runner-datas="runnerDatas" :active-runner="activeRunnerData" />
   </div>
 </template>
 
@@ -13,8 +19,8 @@
 import axios from "axios";
 import Map from "./components/Map";
 import SideNav from "./components/SideNav";
-import RunnerInfo from  "./components/RunnerInfo"
-import Welcome from "./components/Welcome"
+import RunnerInfo from "./components/RunnerInfo";
+import Welcome from "./components/Welcome";
 
 export default {
   name: "App",
@@ -27,7 +33,9 @@ export default {
   data() {
     return {
       runnerDatas: [],
-      activeRunnerData: null
+      activeRunnerData: null,
+      isAppEverEntered: false,
+      fold: false
     };
   },
   methods: {
@@ -40,20 +48,34 @@ export default {
             "https://b09f7822-276f-4b86-8a9e-89882e9b3372.mock.pstmn.io/runners"
           )
           .then(res => {
-            this.runnerDatas = res.data
-            console.log(res)
-            localStorage.setItem("runnerDatas", JSON.stringify(this.runnerDatas));
+            this.runnerDatas = res.data;
+            console.log(res);
+            localStorage.setItem(
+              "runnerDatas",
+              JSON.stringify(this.runnerDatas)
+            );
           });
       } else {
         this.runnerDatas = cacheRunnerDatas;
       }
     },
     afterSetActiveRunner(runnerData) {
-      this.activeRunnerData = runnerData
+      this.activeRunnerData = runnerData;
+    },
+    checkIsAppEverEntered() {
+      if (localStorage.getItem("enteredBefore")) this.isAppEverEntered = true;
+    },
+    afterEnterApp() {
+      this.isAppEverEntered = true
     }
   },
   created() {
+    this.checkIsAppEverEntered();
     this.fetchRunnerDatas();
+    this.$bus.$on(
+      "set-active-runner",
+      runnerData => (this.activeRunnerData = runnerData)
+    );
   }
 };
 </script>
@@ -78,6 +100,6 @@ body {
 }
 
 .leaflet-control-container {
-    display: none;
+  display: none;
 }
 </style>

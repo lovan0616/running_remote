@@ -1,6 +1,6 @@
 <template>
   <div>
-    <l-marker :lat-lng=latlng>
+    <l-marker :lat-lng=latlng @click="setActiveRunner">
       <l-icon icon-url="../icon/runner.png" :iconSize='[64, 64]' />
     </l-marker>
   </div>
@@ -40,9 +40,10 @@ export default {
     }
   },
   methods: {
-    test() {
-      console.log('hello!')
+    setActiveRunner() {
+      this.$bus.$emit('set-active-runner', this.runnerData)
     }
+
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <InfoTab @set-tabed-item=afterSetTabedItem class="ccard flex justify-around" />
-    <DetailInfo class="ccard" :active-runner=activeRunner v-if="tabedItem === 'detail'" />
+    <DetailInfo :active-runner=activeRunner v-if="tabedItem === 'detail'" />
     <History :active-runner=activeRunner v-if="tabedItem === 'history'" />
     <Record :active-runner=activeRunner v-if="tabedItem === 'record'" />
   </div>

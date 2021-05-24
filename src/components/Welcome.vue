@@ -3,15 +3,18 @@
     id="welcome-page"
     class="w-screen h-screen absolute top-0 left-0"
     :class="[{'move':firstEntered}]"
-    v-if="!enteredBefore"
   >
-    <div class="backdrop backdrop-filter backdrop-blur-sm w-screen h-screen flex flex-col items-center justify-center">
-      <h1 class="text-7xl text-brandyellow">歡迎</h1>
-      <p class="text-brandyellow">在跑跑上，找到並肩作戰的跑友吧！</p>
-      <button
-        class="w-4/5 lg:w-1/5 h-20 lg:h-10 rounded-full border-2 border-brandyellow text-2xl text-brandyellow font-bold active:bg-brandyellow active:text-white"
-        @click.stop.prevent="enterApp"
-      >開始吧</button>
+    <div
+      class="w-screen h-screen p-5 bg-gradient-to-t from-white to-transparent flex items-end justify-center text-brandwatermelon"
+    >
+      <div class="flex flex-col items-center justify-center animate__animated animate__bounceInUp animate__slow">
+        <h1 class="text-7xl">歡迎</h1>
+        <p class="font-semibold mb-2">在跑跑上，找到並肩作戰的跑友吧！</p>
+        <button
+          class="w-full h-20 lg:h-10 rounded-full bg-brandwatermelon text-2xl font-bold text-white active:filter active:brightness-75 focus:outline-none"
+          @click.stop.prevent="enterApp"
+        >開始吧</button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +32,8 @@ export default {
     enterApp() {
       this.firstEntered = true;
       localStorage.setItem("enteredBefore", "true");
+
+      this.$emit('enter-app')
     }
   },
   created() {

@@ -14,8 +14,16 @@
           :runner-data="runnerData"
         />
 
+        <!-- 查看中路徑的起點標示 -->
+        <l-marker v-if="routeGeoJson" :lat-lng="[routeStartLatLng[0], routeStartLatLng[1]]">
+          <l-icon icon-url="../icon/start.png" :iconSize="iconSize" />
+        </l-marker>
         <!-- 查看中路徑 -->
-        <l-geo-json v-if="routeGeoJson" :geojson="routeGeoJson" :layerType="'LineString'"></l-geo-json>
+        <l-geo-json v-if="routeGeoJson" :geojson="routeGeoJson" :options="routeOptions" :layerType="'LineString'"></l-geo-json>
+        <!-- 查看中路徑的終點標示 -->
+        <l-marker v-if="routeGeoJson" :lat-lng="[routeEndLatLng[0], routeEndLatLng[1]]">
+          <l-icon icon-url="../icon/end.png" :iconSize="iconSize" />
+        </l-marker>
       </l-map>
     </div>
   </div>
@@ -44,7 +52,14 @@ export default {
         zoomControl: false
       },
       iconSize: [64, 64],
-      routeGeoJson: null
+      routeGeoJson: null,
+      routeStartLatLng: null,
+      routeEndLatLng: null,
+      routeOptions: {
+        color: '#FBC33C',
+        weight: 7,
+        dashArray: '10, 10, 10, 10, 10'
+      }
     };
   },
   props: {
@@ -57,8 +72,7 @@ export default {
     }
   },
   watch: {
-    activeRunner(newValue, oldValue) {
-      console.log(oldValue);
+    activeRunner(newValue) {
       //移動到actibeRunner位置
       this.flyTo(newValue.lat, newValue.lng, 17)
 
@@ -67,6 +81,10 @@ export default {
       //   waypoints: [L.latLng(25.0377, 121.5643), L.latLng(newValue.lat, newValue.lng)],
       //   createMarker: function() { return null},
       // }).addTo(this.myMap);
+    },
+    routeGeoJson(newValue) {
+      this.routeStartLatLng = newValue[0].coordinates[0].slice().reverse()
+      this.routeEndLatLng = newValue[0].coordinates[newValue[0].coordinates.length - 1].slice().reverse()
     }
   },
   mounted() {
