@@ -63,7 +63,7 @@ export default {
       routeOptions: {
         color: '#FBC33C',
         weight: 7,
-        dashArray: '10, 10, 10, 10, 10'
+        dashArray: '10, 10, 10, 10, 10',
       }
     };
   },
@@ -121,7 +121,10 @@ export default {
       const isPCBreakpoint = window.innerWidth >= 1280
       this.myMap.flyTo([ isPCBreakpoint ? lat : lat + 0.0015, lng], zoom)
     },
-    flyToBounds(bounds, options) {
+    flyToBounds(bounds) {
+      const isPCBreakpoint = window.innerWidth >= 1280
+      let options = {}
+      if(!isPCBreakpoint) options.paddingTopLeft = [0, 350]
       this.myMap.flyToBounds(bounds, options)
     },
     locate() {

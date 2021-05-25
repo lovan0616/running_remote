@@ -17,10 +17,12 @@
     <div class="route-info-zone p-2">
       <div class="flex gap-2">
         <p class="distance">
-          <font-awesome-icon class="text-brandblue" icon="clock" /> {{ timeSpend }}分鐘
+          <wesome-icon class="text-brandblue" icon="clock" />
+          {{ timeSpend }}分鐘
         </p>
         <p class="time-spent">
-          <font-awesome-icon class="text-brandblue" icon="route" />{{ distance }}公里
+          <font-awesome-icon class="text-brandblue" icon="route" />
+          {{ distance }}公里
         </p>
       </div>
       <button
@@ -32,7 +34,7 @@
 </template>
 
 <script>
-import moment from "moment"
+import moment from "moment";
 
 export default {
   name: "HistoryCard",
@@ -49,10 +51,16 @@ export default {
       return this.cardRoute[this.cardRoute.length - 1];
     },
     distance() {
-      return this.getDistance(this.start.lat, this.start.lng, this.end.lat, this.end.lng, 'K')
+      return this.getDistance(
+        this.start.lat,
+        this.start.lng,
+        this.end.lat,
+        this.end.lng,
+        "K"
+      );
     },
     timeSpend() {
-      return moment(this.end.time).diff(this.start.time, 'minutes')
+      return moment(this.end.time).diff(this.start.time, "minutes");
     }
   },
   methods: {

@@ -1,11 +1,11 @@
 <template>
   <div
     id="welcome-page"
-    class="w-screen h-screen absolute top-0 left-0"
+    class="absolute top-0 left-0 bottom-0 right-0"
     :class="[{'move':firstEntered}]"
   >
     <div
-      class="w-screen h-screen p-5 bg-gradient-to-t from-white to-transparent flex items-end justify-center text-brandwatermelon"
+      class="absolute top-0 left-0 bottom-0 right-0 p-5 bg-gradient-to-t from-white to-transparent flex items-end justify-center text-brandwatermelon"
     >
       <div class="flex flex-col items-center justify-center animate__animated animate__bounceInUp animate__slow">
         <h1 class="text-7xl">歡迎</h1>

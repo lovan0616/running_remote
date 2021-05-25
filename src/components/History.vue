@@ -1,6 +1,12 @@
 <template>
   <div>
     <ul class="card-panel w-100 h-72 lg:h-550px overflow-scroll p-0">
+      <div v-if="isLoading" class="spin-container w-full h-full flex justify-center text-white items-center">
+        <font-awesome-icon
+          class="placeholder animate-spin text-center align-middle text-5xl"
+          icon="circle-notch"
+        />
+      </div>
       <HistoryCard
         class="ccard"
         v-for="(data, index) in historyData"
@@ -24,7 +30,8 @@ export default {
   data() {
     return {
       historyData: [],
-      page: 1
+      page: 1,
+      isLoading: true
     };
   },
   props: {
@@ -56,6 +63,8 @@ export default {
                 const { data } = res;
                 //將拉回的route資料，新增進變數中
                 that.historyData = that.historyData.concat(data);
+                //結束loading
+                that.isLoading = false;
                 //頁碼+1
                 that.page += 1;
                 //拉完所有資料後，停止監聽變化

@@ -3,7 +3,7 @@
     id="tutorial"
     class="h-screen w-screen bg-white bg-opacity-60 absolute flex justify-center items-center"
   >
-    <div class="bg-white border-8 border-brandblue">
+    <div class="bg-white p-3 border-8 border-brandblue">
       <div class="page p-2">
         <span class="ccircle bg-brandblue text-white">1</span>
         <span class="ml-4 text-2xl text-gray-800">尋找跑跑上的跑者</span>
