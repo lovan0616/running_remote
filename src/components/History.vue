@@ -31,7 +31,8 @@ export default {
     return {
       historyData: [],
       page: 1,
-      isLoading: true
+      isLoading: true,
+      totalPage: null
     };
   },
   props: {
@@ -43,8 +44,6 @@ export default {
     fetchByPage(activeRunner) {
       const observeTarget = document.querySelector(".observe-target");
       const options = { threshold: 0 };
-      //Todo: 修改code，使API能拉回totalPage的資料
-      const totalPage = 4;
       const that = this;
 
       //Infinite Scroll: 監聽observeTarget，當其進入可見範圍時，動態產生card
@@ -66,9 +65,10 @@ export default {
                 //結束loading
                 that.isLoading = false;
                 //頁碼+1
+                that.totalPage = data[0].totalPage
                 that.page += 1;
                 //拉完所有資料後，停止監聽變化
-                if (that.page > totalPage) observer.unobserve(entry.target);
+                if (that.page > that.totalPage) observer.unobserve(entry.target);
               })
               .catch(err => console.log(err));
           }

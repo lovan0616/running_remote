@@ -8,6 +8,7 @@
       :class="[{'-translate-y-90%':fold},{'lg:-translate-y-0':fold},{'lg:-translate-x-90%':fold},{ctransition:fold}]"
     >
       <SideNav :runner-datas="runnerDatas" @set-active-runner="afterSetActiveRunner" />
+      <SideNavPlaceholder :runner-amount="runnerDatas.length" class="my-6 lg:mt-40" v-if="!activeRunnerData" />
       <RunnerInfo :active-runner="activeRunnerData" v-if="activeRunnerData" class="px-4 flex-1" />
       <div class="fold-control cursor-pointer bg-white text-brandblue rounded-xl p-1 lg:w-7 lg:leading-5 absolute -bottom-10 lg:bottom-1/2 lg:translate-y-1/2 right-1/2 lg:-right-6 transform translate-x-1/2 text-center" @click.stop.prevent="fold = !fold">{{ fold ? 
       '點此展開' : '點此收合'}}</div>
@@ -23,6 +24,7 @@ import SideNav from "./components/SideNav";
 import RunnerInfo from "./components/RunnerInfo";
 import Welcome from "./components/Welcome";
 import Tutorial from "./components/Tutorial"
+import SideNavPlaceholder from "./components/SideNavPlacehoder"
 
 export default {
   name: "App",
@@ -31,7 +33,8 @@ export default {
     SideNav,
     RunnerInfo,
     Welcome,
-    Tutorial
+    Tutorial,
+    SideNavPlaceholder
   },
   data() {
     return {
