@@ -67,6 +67,7 @@ export default {
       }
     },
     afterSetActiveRunner(runnerData) {
+      this.fold = false;
       this.activeRunnerData = runnerData;
     },
     afterEndTutorial() {
