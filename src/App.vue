@@ -90,7 +90,10 @@ export default {
     this.fetchRunnerDatas();
     this.$bus.$on(
       "set-active-runner",
-      runnerData => (this.activeRunnerData = runnerData)
+      runnerData => {
+        this.fold = false
+        this.activeRunnerData = runnerData
+      }
     );
   }
 };
