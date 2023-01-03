@@ -3,7 +3,9 @@
     <InfoTab @set-tabed-item=afterSetTabedItem class="ccard flex justify-around" />
     <DetailInfo :active-runner=activeRunner v-if="tabedItem === 'detail'" />
     <History :active-runner=activeRunner v-if="tabedItem === 'history'" />
-    <Record :active-runner=activeRunner v-if="tabedItem === 'record'" />
+    <!-- 暫時隱藏 Record 元件
+    <Record :active-runner=activeRunner v-if="tabedItem === 'record'" /> -->
+    <Record :active-runner=activeRunner v-show="false" />
   </div>
 </template>
 

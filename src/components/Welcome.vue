@@ -50,4 +50,6 @@ export default {
   background-repeat: no-repeat;
   background-position-y: 50%;
 }
+
+
 </style>

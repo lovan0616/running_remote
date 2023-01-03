@@ -88,10 +88,9 @@ export default {
       const that = this
       axios
         .get(
-          `https://powerful-springs-52366.herokuapp.com/api/recordData?userId=${userId}&dateSpan=${dateSpan}`
+          `https://ohwwmi.deta.dev/api/recordData?userId=${userId}&dateSpan=${dateSpan}`
         )
         .then(res => {
-          console.log('get api data')
           that.fetchedData = res.data
         })
         .catch(err => console.log(err));
@@ -107,8 +106,6 @@ export default {
   watch: {
     // 輸入日期改變時重新拉取資料
     dateSpan(newValue) {
-      console.log('watch dateSpan changed')
-
       //api拉回對應日期的records
       const userId = this.activeRunner.userId;
       const dateSpan = newValue.join(",");

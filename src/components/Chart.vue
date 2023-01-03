@@ -37,6 +37,7 @@ export default {
             label: '跑跑紀錄',
             data: data,
             backgroundColor: [
+              "rgba(245, 190, 59, 0.2)",
               "rgba(255, 99, 132, 0.2)",
               "rgba(54, 162, 235, 0.2)",
               "rgba(255, 206, 86, 0.2)",
@@ -45,6 +46,7 @@ export default {
               "rgba(255, 159, 64, 0.2)"
             ],
             borderColor: [
+              "rgba(245, 190, 59, 1)",
               "rgba(255, 99, 132, 1)",
               "rgba(54, 162, 235, 1)",
               "rgba(255, 206, 86, 1)",

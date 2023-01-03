@@ -17,7 +17,7 @@
     <div class="route-info-zone p-2">
       <div class="flex gap-2">
         <p class="distance">
-          <wesome-icon class="text-brandblue" icon="clock" />
+          <font-awesome-icon class="text-brandblue" icon="clock" />
           {{ timeSpend }}分鐘
         </p>
         <p class="time-spent">

@@ -4,8 +4,9 @@
       <span v-if="tabedItem === 'detail'">&#10003;</span>跑者介紹</div>
     <div class="history-tab cursor-pointer" :class="[{'text-brandyellow': tabedItem == 'history'}]" @click.stop.prevent='setToHistory'>
       <span v-if="tabedItem === 'history'">&#10003;</span>跑跑路徑</div>
-    <div class="record-tab cursor-pointer" :class="[{'text-brandyellow': tabedItem == 'record'}]" @click.stop.prevent='setToRecord'>
-      <span v-if="tabedItem === 'record'">&#10003;</span>跑跑紀錄</div>
+      <!-- 暫時隱藏跑跑紀錄 -->
+    <!-- <div class="record-tab cursor-pointer" :class="[{'text-brandyellow': tabedItem == 'record'}]" @click.stop.prevent='setToRecord'>
+      <span v-if="tabedItem === 'record'">&#10003;</span>跑跑紀錄</div> -->
   </div>
 </template>
 
